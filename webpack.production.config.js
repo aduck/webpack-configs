@@ -5,12 +5,13 @@ var ExtractTextPlugin=require("extract-text-webpack-plugin")
 var UglifyJsPlugin=webpack.optimize.UglifyJsPlugin
 
 module.exports={
+  context:__dirname,
   entry:{
-    //"vendor":['react/dist/react.js','react-dom/dist/react-dom.js'],
-    "app":__dirname+'/app/main.js'
+    "vendor":['react','react-dom'],
+    "app":'./app/main.js'
   },
   output:{
-    path:__dirname+'/dest', // 输出目录
+    path:'dest', // 输出目录
     filename:'[name].[hash:8].js', // 输出文件名称
   },
   module:{
@@ -46,14 +47,13 @@ module.exports={
     }),
     // html文件生成
     new HtmlWebpackPlugin({
-      template:__dirname+"/app/index.tmpl.html" //new 一个这个插件的实例，并传入相关的参数
+      template:"app/index.tmpl.html" //new 一个这个插件的实例，并传入相关的参数
     }),
     // 提取公共代码
-    /*
     new CommonsChunkPlugin({
       name:'vendor',
       minChunks:Infinity
-    }),*/
+    }),
     // 提取css到单独文件
     new ExtractTextPlugin('style.css'),
     // 代码压缩
